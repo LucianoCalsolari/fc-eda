@@ -1,42 +1,38 @@
-package create_account
+package get_account
 
 import (
-	"github.com.br/devfullcycle/fc-ms-wallet/internal/entity"
-	"github.com.br/devfullcycle/fc-ms-wallet/internal/gateway"
+	"fc-eda/internal/gateway"
+	"time"
 )
 
-type CreateAccountInputDTO struct {
-	ClientID string `json:"client_id"`
+type GetAccountInputDTO struct {
+	ID string `json:"id"`
 }
 
-type CreateAccountOutputDTO struct {
-	ID string
+type GetAccountOutputDTO struct {
+	ID        string    `json:"id"`
+	Balance   float64   `json:"balance"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
-type CreateAccountUseCase struct {
-	AccountGateway  gateway.AccountGateway
-	ClientGateway   gateway.ClientGateway
+type GetAccountUseCase struct {
+	AccountGateway gateway.AccountGateway
 }
 
-func NewCreateAccountUseCase(a gateway.AccountGateway, c gateway.ClientGateway) *CreateAccountUseCase {
-	return &CreateAccountUseCase{
-		AccountGateway:  a,
-		ClientGateway:   c,
+func NewGetAccountOutputDTO(a gateway.AccountGateway) *GetAccountUseCase {
+	return &GetAccountUseCase{
+		AccountGateway: a,
 	}
 }
 
-func (uc *CreateAccountUseCase) Execute(input CreateAccountInputDTO) (*CreateAccountOutputDTO, error) {
-	client, err := uc.ClientGateway.Get(input.ClientID)
+func (uc *GetAccountUseCase) Execute(input GetAccountInputDTO) (*GetAccountOutputDTO, error) {
+	account, err := uc.AccountGateway.FindByID(input.ID)
 	if err != nil {
 		return nil, err
 	}
-	account := entity.NewAccount(client)
-	err = uc.AccountGateway.Save(account)
-	if err != nil {
-		return nil, err
-	}
-	output := &CreateAccountOutputDTO{
-		ID: account.ID,
-	}
-	return output, nil
+	return &GetAccountOutputDTO{
+		ID:        account.ID,
+		Balance:   account.Balance,
+		UpdatedAt: account.UpdatedAt,
+	}, nil
 }

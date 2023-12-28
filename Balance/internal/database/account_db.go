@@ -1,7 +1,8 @@
-package main
+package database
 
 import (
 	"database/sql"
+	"fc-eda/internal/entity"
 	"time"
 )
 
@@ -15,7 +16,7 @@ func NewAccountDB(db *sql.DB) *AccountDB {
 	}
 }
 
-func (a *AccountDB) Get(id string) (*entity.Account, error) {
+func (a *AccountDB) FindByID(id string) (*entity.Account, error) {
 	var account entity.Account
 
 	stmt, err := a.DB.Prepare(`

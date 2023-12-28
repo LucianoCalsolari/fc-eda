@@ -1,6 +1,6 @@
 package gateway
 
-import "github.com.br/devfullcycle/fc-ms-wallet/internal/entity"
+import "fc-eda/internal/entity"
 
 type AccountGateway interface {
 	Save(account *entity.Account) error

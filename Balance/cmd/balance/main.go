@@ -2,12 +2,18 @@ package main
 
 import (
 	"database/sql"
+	"fc-eda/web"
 	"fmt"
 	"log"
+	"net/http"
+
+	"fc-eda/internal/database"
+	"fc-eda/internal/usecase/get_account"
+	"fc-eda/kafka"
 
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
-	"github.com/lucianocalsolari/balances/internal/infrastructure/kafka"
-	"github.com/lucianocalsolari/balances/internal/interfaces/http"
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
 )
 
 func main() {
@@ -24,8 +30,8 @@ func main() {
 		"group.id":          "wallet",
 	}
 
-	kafkaProcessor := kafka.NewKafkaProcessor(&configMap, accountDb)
-	kafkaProcessor.Consume()
+	kafkaConsumer := kafka.NewConsumer(&configMap, accountDb)
+	kafkaConsumer.Consume()
 
 	getAccountUseCase := get_account.NewGetAccountOutputDTO(accountDb)
 
