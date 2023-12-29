@@ -2,10 +2,10 @@ version: '3'
 
 services:
   walletcore: 
-    build: WalletCore/.
+    build: Walletcore/.
     platform: linux/amd64
     volumes:
-      - ./WalletCore:/app
+      - ./Walletcore:/app
     ports:
       - 8080:8080
     depends_on:
@@ -13,7 +13,7 @@ services:
       - walletdb    
 
   walletdb:
-    build: ./WalletCore/dump
+    build: ./Walletcore/dump
     command: --innodb-use-native-aio=0
     platform: linux/x86_64
     container_name: walletdb
@@ -24,10 +24,10 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./WalletCore/.docker/mysql:/var/lib/mysql
+      - ./Walletcore/.docker/mysql:/var/lib/mysql
 
   balancedb:
-    build: ./Balance/dump
+    build: ./Balance/migration
     command: --innodb-use-native-aio=0
     platform: linux/x86_64
     container_name: balancedb
@@ -38,14 +38,14 @@ services:
     ports:
       - 3308:3306
     volumes:
-      - ./BalanceMs/.docker/mysql:/var/lib/mysql
+      - ./Balance/.docker/mysql:/var/lib/mysql
 
   balance:
     build:
       context: ./Balance
     depends_on:
       - kafka
-      - mysql
+      - balancedb
     ports:
       - 3003:3003  
     environment:

@@ -1,37 +1,16 @@
 version: '3'
 
 services:
-  balances:
-    build:
-      context: .
+  balancedb:
+    build: ./migration
+    command: --innodb-use-native-aio=0
+    platform: linux/x86_64
+    container_name: balancedb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: balance
+      MYSQL_PASSWORD: root
     ports:
-      - "3003:3003"
-    depends_on:
-      - walletcore
-    environment:
-      - KAFKA_BROKER=<kafka_broker_address>
-      - DATABASE_URL=<database_url>
-
-  walletcore:
-    image: walletcore:latest
-    environment:
-      - KAFKA_BROKER=<kafka_broker_address>
-      - DATABASE_URL=<database_url>
-
-  kafka:
-    image: wurstmeister/kafka:latest
-    ports:
-      - "9092:9092"
-    environment:
-      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
-      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
-      - KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
-      - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - 3306:3306
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-
-  zookeeper:
-    image: wurstmeister/zookeeper:latest
-    ports:
-      - "2181:2181"
+      - .docker/mysql:/var/lib/mysql
