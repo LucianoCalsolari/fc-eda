@@ -16,3 +16,10 @@ Observações:
 - Nosso objetivo com esse desafio não é corrigir seu código ou verificar a qualidade da sua aplicação, mas sim garantir que você teve o entendendimento da importância da produção e consumo de eventos.
 
 - Nosso suporte nesse desafio vai até o escopo conceitual sobre o entendimento dos eventos e não entrará no mérito da análise de seu código, e é exatamente por isso que estamos permitindo que você utilize a linguagem de programação que você ache mais conveniente.
+
+go mod init github.com.br/lucianocalsolari/fc-eda
+Extensao go + todos os pacote (ctrl + shift+ p) 
+
+go run Walletcore/cmd/Walletcore/main.go
+
+sudo usermod -aG docker $USER e reiniciar 

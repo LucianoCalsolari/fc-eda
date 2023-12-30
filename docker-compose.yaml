@@ -48,12 +48,6 @@ services:
       - balancedb
     ports:
       - 3003:3003  
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/wallet  
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092  
-      SPRING_KAFKA_CONSUMER_GROUP_ID: your-consumer-group-id  
 
   zookeeper:
     image: "confluentinc/cp-zookeeper:6.1.0"
