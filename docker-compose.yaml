@@ -3,7 +3,7 @@ version: '3'
 services:
   walletcore: 
     build: Walletcore/.
-    platform: linux/amd64
+    platform: linux/x86_64
     volumes:
       - ./Walletcore:/app
     ports:
@@ -43,6 +43,9 @@ services:
   balance:
     build:
       context: ./Balance
+    platform: linux/x86_64
+    volumes:
+      - ./Balance:/app
     depends_on:
       - kafka
       - balancedb
