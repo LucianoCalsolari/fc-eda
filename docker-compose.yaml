@@ -42,7 +42,7 @@ services:
 
   balance:
     build:
-      context: ./Balance
+      context: Balance/.
     platform: linux/x86_64
     volumes:
       - ./Balance:/app
