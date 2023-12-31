@@ -5,4 +5,4 @@ WORKDIR /app/
 
 RUN apt-get update && apt-get install -y librdkafka-dev
 
-CMD ["go", "run", "cmd/balancems/main.go"]
+CMD ["go", "run", "cmd/balance/main.go"]

@@ -22,7 +22,7 @@ Extensao go + todos os pacote (ctrl + shift+ p)
 
 ## Para rodar a aplicacao 
 docker exec -it 30491cda0255 /bin/bash
-go run cmd/Walletcore/main.go
+go run cmd/walletcore/main.go
 
 ou fora do container:
 go run Walletcore/cmd/Walletcore/main.go
