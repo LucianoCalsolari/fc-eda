@@ -27,7 +27,7 @@ services:
       - ./Walletcore/.docker/mysql:/var/lib/mysql
 
   balancedb:
-    build: ./Balance/migration
+    build: ./Balance/dump
     command: --innodb-use-native-aio=0
     platform: linux/x86_64
     container_name: balancedb

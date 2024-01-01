@@ -2,7 +2,7 @@ version: '3'
 
 services:
   balancedb:
-    build: ./migration
+    build: ./dump
     command: --innodb-use-native-aio=0
     platform: linux/x86_64
     container_name: balancedb

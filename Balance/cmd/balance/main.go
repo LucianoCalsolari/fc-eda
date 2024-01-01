@@ -8,8 +8,10 @@ import (
 	"net/http"
 
 	"fc-eda/internal/database"
+	"fc-eda/internal/kafka"
 	"fc-eda/internal/usecase/get_account"
-	"fc-eda/kafka"
+
+	_ "github.com/go-sql-driver/mysql"
 
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/go-chi/chi"
